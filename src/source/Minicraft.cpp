@@ -5,22 +5,13 @@
 
 
 Minicraft::Minicraft(sf::RenderWindow & window) :
-	window(window)
+	window(window),
+	backgroundColor(37,37,48),
+	game(window)
 {
 }
 
 void Minicraft::run(){
-	while (window.isOpen()) {
-		input();
-		window.clear(sf::Color::Green);
-		window.display();
-	}
+	game.run();
 }
 
-void Minicraft::input(){
-	sf::Event event;
-	while (window.pollEvent(event)) {
-		if (event.type == sf::Event::Closed)
-			window.close();
-	}
-}
