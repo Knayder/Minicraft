@@ -2,5 +2,6 @@
 
 Tile::Tile(const std::string &textureName)
 {
-	//setTexture(*TextureManager::get(textureName));
+
+	setTexture(*TextureManager::get(textureName));
 }

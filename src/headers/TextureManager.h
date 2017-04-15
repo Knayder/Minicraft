@@ -15,7 +15,13 @@ public:
 
 	static sf::Texture * load(const std::string &file, const std::string &name);
 
+	static sf::Texture * load(const std::string &mainName, const std::string &name, const sf::IntRect &area);
+
 	static sf::Texture * get(const std::string &name);
+
+	static bool removeColor(const std::string &name, const sf::Color & color);
+
+	static bool setColor(const std::string &name, const int &value, const sf::Color &color);
 
 	static bool clear();
 

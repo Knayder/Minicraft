@@ -34,6 +34,23 @@ sf::Texture * TextureManager::load(const std::string & file, const std::string &
 
 }
 
+sf::Texture * TextureManager::load(const std::string & mainName, const std::string & name, const sf::IntRect & area)
+{
+	sf::Texture *mainTexture = TextureManager::get(mainName);
+	if (mainTexture != nullptr) {
+		sf::Image image = mainTexture->copyToImage();
+
+		sf::Texture *texture = new sf::Texture;
+		texture->loadFromImage(image, area);
+		getInstance().textureContainer.emplace(name, texture);
+		return texture;
+
+
+	}
+	else
+		return nullptr;
+}
+
 sf::Texture * TextureManager::get(const std::string & name)
 {
 	TextureManager &instance = getInstance();
@@ -42,6 +59,37 @@ sf::Texture * TextureManager::get(const std::string & name)
 		return nullptr;
 	else
 		return result->second;
+}
+
+bool TextureManager::removeColor(const std::string &name, const sf::Color & color)
+{
+	sf::Texture *texture = TextureManager::get(name);
+	if (texture != nullptr) {
+		sf::Image image = texture->copyToImage();
+		image.createMaskFromColor(color);
+		texture->loadFromImage(image);
+		return true;
+	}
+	else
+		return false;
+}
+
+bool TextureManager::setColor(const std::string & name, const int & value, const sf::Color & color)
+{
+	sf::Texture *texture = TextureManager::get(name);
+	if (texture != nullptr) {
+		sf::Image image = texture->copyToImage();
+
+		for (int y = 0; y < image.getSize().y; y++)
+			for (int x = 0; x < image.getSize().x; x++)
+				if (image.getPixel(x, y).r == value)
+					image.setPixel(x, y, color);
+
+		texture->loadFromImage(image);
+		return true;
+	}
+	else
+		return false;
 }
 
 bool TextureManager::clear()

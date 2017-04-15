@@ -5,10 +5,14 @@
 #include "..\TextureManager.h"
 #include "Tile.h"
 
+#include <vector>
+
 class Game {
 private:
 	sf::RenderWindow &window;
 	void input();
+	std::vector<Tile> tiles;
+	int scale;
 public:
 	Game(sf::RenderWindow &window);
 	int run();
