@@ -7,6 +7,7 @@
 class Tile : public sf::Sprite {
 public:
 	Tile(const std::string &textureName);
+	virtual void tick(); //tick(tool &usedTool)
 };
 
 #endif TILE_H

@@ -11,10 +11,11 @@ class Game {
 private:
 	sf::RenderWindow &window;
 	void input();
-	std::vector<Tile> tiles;
+	std::vector<Tile*> tiles;
 	int scale;
 public:
 	Game(sf::RenderWindow &window);
+	~Game();
 	int run();
 };
 

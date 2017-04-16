@@ -1,4 +1,11 @@
 #include "..\..\headers\Game\Game.h"
+#include <Windows.h>
+Game::~Game()
+{
+	TextureManager::clear();
+	for (auto tile : tiles)
+		delete tile;
+}
 
 Game::Game(sf::RenderWindow & window) :
 	window(window),
@@ -33,23 +40,24 @@ Game::Game(sf::RenderWindow & window) :
 	TextureManager::setColor("grass", 170, sf::Color(50, 170, 20));
 	TextureManager::setColor("grass", 250, sf::Color(20, 230, 30));
 
-	
 }
+
+
 
 int Game::run(){
 
 	for (int y = 0; y < 720/(8*scale); y++)
 		for (int x = 0; x < 1280/(8*scale)+1; x++) {
-			Tile tile("grass");
-			tile.setPosition(x * 8 * scale, y * 8 * scale);
-			tile.setScale(scale, scale);
+			Tile *tile = new Tile("grass");
+			tile->setPosition(x * 8 * scale, y * 8 * scale);
+			tile->setScale(scale, scale);
 			tiles.push_back(tile);
 		}
 	while (window.isOpen()) {
 		input();
 		window.clear(sf::Color::Yellow);
 		for (auto tile : tiles)
-			window.draw(tile);
+			window.draw(*tile);
 		window.display();
 	}
 	return 0;
