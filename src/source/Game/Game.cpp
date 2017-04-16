@@ -54,6 +54,11 @@ void Game::loadResources()
 	TextureManager::setColor("grassDownRight2", 170, sf::Color(30, 90, 20));
 	TextureManager::setColor("grassDownRight2", 250, sf::Color(30, 80, 20));
 
+	TextureManager::load("charMoveRight", "charMoveLeft", 0);
+	TextureManager::load("charLookRight", "charLookLeft", 0);
+	TextureManager::flip("charMoveLeft", "h");
+	TextureManager::flip("charLookLeft", "h");
+
 	TextureManager::load("grassDownRight", "grassDownLeft", 90);
 	TextureManager::load("grassDownLeft", "grassUpLeft", 90);
 	TextureManager::load("grassUpLeft", "grassUpRight", 90);
@@ -70,9 +75,12 @@ void Game::loadResources()
 
 Game::Game(sf::RenderWindow & window) :
 	window(window),
-	scale(4)
+	scale(4),
+	maxFps(60)
 {
 	loadResources();
+	player = new Player();
+	player->setScale(scale, scale);
 }
 
 
@@ -91,15 +99,31 @@ int Game::run(){
 		for (int x = 0; x < map[y].size(); x++) 
 			addTile(new GrassTile(map[y][x]), {16.f*x*scale, 16.f*y*scale});
 
+	clock.restart();
+	float deltaTime = 1.f / 60.f;
 	while (window.isOpen()) {
-		input();
-		window.clear(sf::Color::Yellow);
-		for (auto tile : tiles)
-			window.draw(*tile);
-		window.display();
+		if (clock2.getElapsedTime().asSeconds() >= 1) {
+			clock2.restart();
+			std::cout << "FPS: " << (int)((1 / deltaTime)+0.5) << std::endl;
+		}
+		if (clock.getElapsedTime().asSeconds() >= 1.f / maxFps) {
+			deltaTime = clock.restart().asSeconds();
+			input();
+
+			player->update(deltaTime);
+
+			window.clear(sf::Color::Yellow);
+			for (auto tile : tiles)
+				window.draw(*tile);
+
+			window.draw(*player);
+			window.display();
+			
+		}
 	}
 	return 0;
 }
+
 void Game::input() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
@@ -107,6 +131,7 @@ void Game::input() {
 			window.close();
 	}
 }
+
 void Game::addTile(Tile * tile, const sf::Vector2f & position) {
 	tile->setScale(scale, scale);
 	tile->setPosition(position);

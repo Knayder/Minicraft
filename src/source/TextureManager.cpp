@@ -91,6 +91,22 @@ sf::Texture * TextureManager::get(const std::string & name)
 		return result->second;
 }
 
+sf::Texture * TextureManager::flip(const std::string & name, const std::string & direction)
+{
+	sf::Texture *texture = TextureManager::get(name);
+	if (texture != nullptr) {
+		sf::Image image = texture->copyToImage();
+		if (direction == "h")
+			image.flipHorizontally();
+		else if (direction == "v")
+			image.flipVertically();
+		texture->loadFromImage(image);
+		return texture;
+	}
+	else
+		return nullptr;
+}
+
 bool TextureManager::removeColor(const std::string &name, const sf::Color & color)
 {
 	sf::Texture *texture = TextureManager::get(name);

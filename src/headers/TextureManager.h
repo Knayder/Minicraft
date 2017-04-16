@@ -21,6 +21,8 @@ public:
 
 	static sf::Texture * get(const std::string &name);
 
+	static sf::Texture * flip(const std::string &name, const std::string &direction);
+
 	static bool removeColor(const std::string &name, const sf::Color & color);
 
 	static bool setColor(const std::string &name, const int &value, const sf::Color &color);

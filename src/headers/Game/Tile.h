@@ -12,9 +12,7 @@ class Tile : public Utility {
 public:
 	Tile(const std::string &name) :
 		Utility(name)
-	{
-
-	}
+	{}
 	virtual void use(Tool &tool, Pawn &pawn){}
 	virtual void update(const float &deltaTime){}
 };

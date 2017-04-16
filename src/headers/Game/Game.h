@@ -5,6 +5,7 @@
 #include "..\TextureManager.h"
 #include "Tile.h"
 #include "Tiles/GrassTile.h"
+#include "Pawns/Player.h"
 
 #include <iostream>
 
@@ -18,6 +19,10 @@ private:
 	std::vector<Tile*> tiles;
 	void loadResources();
 	int scale;
+	float maxFps;
+
+	sf::Clock clock, clock2;
+	Pawn *player;
 public:
 	Game(sf::RenderWindow &window);
 	~Game();
