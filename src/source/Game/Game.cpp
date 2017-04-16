@@ -9,7 +9,7 @@ Game::~Game()
 
 Game::Game(sf::RenderWindow & window) :
 	window(window),
-	scale(6)
+	scale(4)
 {
 	TextureManager::load("res/sheet.png", "texture");
 	TextureManager::removeColor("texture", sf::Color(0, 0, 0));
@@ -18,7 +18,9 @@ Game::Game(sf::RenderWindow & window) :
 	TextureManager::load("texture", "charMoveUp",sf::IntRect(16, 0, 16, 16));
 	TextureManager::load("texture", "charLookRight", sf::IntRect(32, 0, 16, 16));
 	TextureManager::load("texture", "charMoveRight", sf::IntRect(48, 0, 16, 16));
-	TextureManager::load("texture", "grass", sf::IntRect(64, 0, 8, 8));
+	TextureManager::load("texture", "grass", sf::IntRect(64, 0, 16, 16));
+	TextureManager::load("texture", "grassDown", sf::IntRect(80, 0, 16, 16));
+	TextureManager::load("texture", "grassDownRight", sf::IntRect(96, 0, 16, 16));
 
 	TextureManager::setColor("charMoveDown", 80, sf::Color(30, 30, 30));
 	TextureManager::setColor("charMoveDown", 170, sf::Color(135, 66, 66));
@@ -36,23 +38,45 @@ Game::Game(sf::RenderWindow & window) :
 	TextureManager::setColor("charMoveRight", 170, sf::Color(135, 66, 66));
 	TextureManager::setColor("charMoveRight", 250, sf::Color(209, 173, 146));
 
-	TextureManager::setColor("grass", 80, sf::Color(30, 200, 20));
-	TextureManager::setColor("grass", 170, sf::Color(50, 170, 20));
-	TextureManager::setColor("grass", 250, sf::Color(20, 230, 30));
+	TextureManager::setColor("grass", 80, sf::Color(30, 100, 20));
+	TextureManager::setColor("grass", 170, sf::Color(30, 90, 20));
+	TextureManager::setColor("grass", 250, sf::Color(30, 80, 20));
+
+	TextureManager::setColor("grassDown", 80, sf::Color(30, 100, 20));
+	TextureManager::setColor("grassDown", 170, sf::Color(30, 90, 20));
+	TextureManager::setColor("grassDown", 250, sf::Color(30, 80, 20));
+
+	TextureManager::setColor("grassDownRight", 80, sf::Color(30, 100, 20));
+	TextureManager::setColor("grassDownRight", 170, sf::Color(30, 90, 20));
+	TextureManager::setColor("grassDownRight", 250, sf::Color(30, 80, 20));
+
+	TextureManager::load("grassDownRight", "grassDownLeft", 90);
+	TextureManager::load("grassDownLeft", "grassUpLeft", 90);
+	TextureManager::load("grassUpLeft", "grassUpRight", 90);
+
+	TextureManager::load("grassDown", "grassLeft", 90);
+	TextureManager::load("grassLeft", "grassUp", 90);
+	TextureManager::load("grassUp", "grassRight", 90);
+
 
 }
 
 
 
 int Game::run(){
+	std::vector<std::vector<std::string>> map = {
+		{"grassUpLeft", "grassUp", "grassUp" , "grassUp" , "grassUp" , "grassUp", "grassUpRight"},
+		{"grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight"},
+		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
+		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
+		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
+		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
+		{ "grassDownLeft", "grassDown" , "grassDown" , "grassDown" , "grassDown" , "grassDown", "grassDownRight" },
+	};
+	for (int y = 0; y < map.size(); y++)
+		for (int x = 0; x < map[y].size(); x++) 
+			addTile(new GrassTile(map[y][x]), {16.f*x*scale, 16.f*y*scale});
 
-	for (int y = 0; y < 720/(8*scale); y++)
-		for (int x = 0; x < 1280/(8*scale)+1; x++) {
-			Tile *tile = new Tile("grass");
-			tile->setPosition(x * 8 * scale, y * 8 * scale);
-			tile->setScale(scale, scale);
-			tiles.push_back(tile);
-		}
 	while (window.isOpen()) {
 		input();
 		window.clear(sf::Color::Yellow);
@@ -62,7 +86,6 @@ int Game::run(){
 	}
 	return 0;
 }
-
 void Game::input() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
@@ -70,3 +93,10 @@ void Game::input() {
 			window.close();
 	}
 }
+void Game::addTile(Tile * tile, const sf::Vector2f & position) {
+	tile->setScale(scale, scale);
+	tile->setPosition(position);
+	tiles.push_back(tile);
+}
+
+

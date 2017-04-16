@@ -2,6 +2,11 @@
 
 Tile::Tile(const std::string &textureName)
 {
+	sf::Texture *texture = TextureManager::get(textureName);
+	sf::Sprite::setTexture(*texture);
+}
 
-	setTexture(*TextureManager::get(textureName));
+void Tile::setTexture(const std::string & name)
+{
+	sf::Sprite::setTexture(*TextureManager::get(name));
 }

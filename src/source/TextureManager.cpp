@@ -51,6 +51,36 @@ sf::Texture * TextureManager::load(const std::string & mainName, const std::stri
 		return nullptr;
 }
 
+sf::Texture * TextureManager::load(const std::string & mainName, const std::string & name, const int & rotate)
+{
+	sf::Texture *mainTexture = TextureManager::get(mainName);
+	if (mainTexture != nullptr) {
+		sf::Image image = mainTexture->copyToImage();
+		
+		int sizeX = image.getSize().x;
+		int sizeY = image.getSize().y;
+
+		sf::Image newImage = image;
+
+		for (int i = 0; i < rotate / 90; i++) {
+			image = newImage;
+			for (int x = 0; x < sizeX; x++)
+				for (int y = 0; y < sizeY; y++)
+					newImage.setPixel(sizeX - 1 - x, y, image.getPixel(y, x));
+		}
+
+
+		sf::Texture *texture = new sf::Texture;
+		texture->loadFromImage(newImage);
+		getInstance().textureContainer.emplace(name, texture);
+		return texture;
+
+
+	}
+	else
+		return nullptr;
+}
+
 sf::Texture * TextureManager::get(const std::string & name)
 {
 	TextureManager &instance = getInstance();

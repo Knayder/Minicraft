@@ -17,6 +17,8 @@ public:
 
 	static sf::Texture * load(const std::string &mainName, const std::string &name, const sf::IntRect &area);
 
+	static sf::Texture * load(const std::string &mainName, const std::string &name, const int &rotate);
+
 	static sf::Texture * get(const std::string &name);
 
 	static bool removeColor(const std::string &name, const sf::Color & color);
