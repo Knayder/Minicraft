@@ -7,20 +7,20 @@ Game::~Game()
 		delete tile;
 }
 
-Game::Game(sf::RenderWindow & window) :
-	window(window),
-	scale(4)
+
+void Game::loadResources()
 {
 	TextureManager::load("res/sheet.png", "texture");
 	TextureManager::removeColor("texture", sf::Color(0, 0, 0));
 
 	TextureManager::load("texture", "charMoveDown", sf::IntRect(0, 0, 16, 16));
-	TextureManager::load("texture", "charMoveUp",sf::IntRect(16, 0, 16, 16));
+	TextureManager::load("texture", "charMoveUp", sf::IntRect(16, 0, 16, 16));
 	TextureManager::load("texture", "charLookRight", sf::IntRect(32, 0, 16, 16));
 	TextureManager::load("texture", "charMoveRight", sf::IntRect(48, 0, 16, 16));
 	TextureManager::load("texture", "grass", sf::IntRect(64, 0, 16, 16));
 	TextureManager::load("texture", "grassDown", sf::IntRect(80, 0, 16, 16));
 	TextureManager::load("texture", "grassDownRight", sf::IntRect(96, 0, 16, 16));
+	TextureManager::load("texture", "grassDownRight2", sf::IntRect(112, 0, 16, 16));
 
 	TextureManager::setColor("charMoveDown", 80, sf::Color(30, 30, 30));
 	TextureManager::setColor("charMoveDown", 170, sf::Color(135, 66, 66));
@@ -50,6 +50,10 @@ Game::Game(sf::RenderWindow & window) :
 	TextureManager::setColor("grassDownRight", 170, sf::Color(30, 90, 20));
 	TextureManager::setColor("grassDownRight", 250, sf::Color(30, 80, 20));
 
+	TextureManager::setColor("grassDownRight2", 80, sf::Color(30, 100, 20));
+	TextureManager::setColor("grassDownRight2", 170, sf::Color(30, 90, 20));
+	TextureManager::setColor("grassDownRight2", 250, sf::Color(30, 80, 20));
+
 	TextureManager::load("grassDownRight", "grassDownLeft", 90);
 	TextureManager::load("grassDownLeft", "grassUpLeft", 90);
 	TextureManager::load("grassUpLeft", "grassUpRight", 90);
@@ -58,20 +62,30 @@ Game::Game(sf::RenderWindow & window) :
 	TextureManager::load("grassLeft", "grassUp", 90);
 	TextureManager::load("grassUp", "grassRight", 90);
 
+	TextureManager::load("grassDownRight2", "grassDownLeft2", 90);
+	TextureManager::load("grassDownLeft2", "grassUpLeft2", 90);
+	TextureManager::load("grassUpLeft2", "grassUpRight2", 90);
+}
 
+
+Game::Game(sf::RenderWindow & window) :
+	window(window),
+	scale(4)
+{
+	loadResources();
 }
 
 
 
 int Game::run(){
 	std::vector<std::vector<std::string>> map = {
-		{"grassUpLeft", "grassUp", "grassUp" , "grassUp" , "grassUp" , "grassUp", "grassUpRight"},
-		{"grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight"},
-		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
-		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
-		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
-		{ "grassLeft", "grass" , "grass" , "grass" , "grass" , "grass", "grassRight" },
-		{ "grassDownLeft", "grassDown" , "grassDown" , "grassDown" , "grassDown" , "grassDown", "grassDownRight" },
+		{"grassUpLeft", "grassUp", "grassUp", "grassUp", "grassUp", "grassUp", "grassUp", "grassUp" , "grassUp" , "grassUp" , "grassUp", "grassUpRight"},
+		{"grassLeft", "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grass" , "grass", "grassRight"},
+		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grass" , "grass", "grassRight" },
+		{ "grassLeft", "grass" , "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grass", "grassRight" },
+		{ "grassLeft", "grass" , "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grassDownRight2", "grassDownRight" },
+		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass","grass", "grass" , "grass" , "grass" , "grassDownRight" },
+		{ "grassDownLeft", "grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" , "grassDown" , "grassDown" , "grassDownRight" },
 	};
 	for (int y = 0; y < map.size(); y++)
 		for (int x = 0; x < map[y].size(); x++) 

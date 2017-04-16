@@ -16,6 +16,7 @@ private:
 	void input();
 	void addTile(Tile *tile, const sf::Vector2f &position);
 	std::vector<Tile*> tiles;
+	void loadResources();
 	int scale;
 public:
 	Game(sf::RenderWindow &window);
