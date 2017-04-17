@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "../TextureManager.h"
 
-class Utility : public sf::Sprite {
+class Entity : public sf::Sprite {
 public:
-	Utility(const std::string &name) :
+	Entity(const std::string &name) :
 		sf::Sprite(*TextureManager::get(name))
 	{
 		

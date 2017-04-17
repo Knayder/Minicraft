@@ -2,15 +2,15 @@
 #define PAWN_H
 
 #include <SFML/Graphics.hpp>
-#include "Utility.h"
+#include "Entity.h"
 #include "../TextureManager.h"
 
 
 
-class Pawn : public Utility {
+class Pawn : public Entity {
 public:
 	Pawn(const std::string &name):
-		Utility(name)
+		Entity(name)
 	{}
 	virtual ~Pawn(){}
 	
