@@ -21,6 +21,7 @@ void Game::loadResources()
 	TextureManager::load("texture", "grassDown", sf::IntRect(80, 0, 16, 16));
 	TextureManager::load("texture", "grassDownRight", sf::IntRect(96, 0, 16, 16));
 	TextureManager::load("texture", "grassDownRight2", sf::IntRect(112, 0, 16, 16));
+	TextureManager::load("texture", "shovel", sf::IntRect(0, 48, 8, 8));
 
 	TextureManager::setColor("charMoveDown", 80, sf::Color(30, 30, 30));
 	TextureManager::setColor("charMoveDown", 170, sf::Color(135, 66, 66));
@@ -53,6 +54,10 @@ void Game::loadResources()
 	TextureManager::setColor("grassDownRight2", 80, sf::Color(30, 100, 20));
 	TextureManager::setColor("grassDownRight2", 170, sf::Color(30, 90, 20));
 	TextureManager::setColor("grassDownRight2", 250, sf::Color(30, 80, 20));
+
+	TextureManager::setColor("shovel", 80, sf::Color(80,80,80));
+	TextureManager::setColor("shovel", 170, sf::Color(150, 119, 93));
+	TextureManager::setColor("shovel", 250, sf::Color(156, 170, 183));
 
 	TextureManager::load("charMoveRight", "charMoveLeft", 0);
 	TextureManager::load("charLookRight", "charLookLeft", 0);
@@ -92,7 +97,7 @@ int Game::run(){
 		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grass" , "grass", "grassRight" },
 		{ "grassLeft", "grass" , "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grass", "grassRight" },
 		{ "grassLeft", "grass" , "grass" , "grass", "grass", "grass", "grass", "grass", "grass" , "grass" , "grassDownRight2", "grassDownRight" },
-		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass","grass", "grass" , "grass" , "grass" , "grassDownRight" },
+		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass","grass", "grass" , "grass" , "grassDownRight2" , "grassDownRight" },
 		{ "grassDownLeft", "grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" , "grassDown" , "grassDown" , "grassDownRight" },
 	};
 	for (int y = 0; y < map.size(); y++)

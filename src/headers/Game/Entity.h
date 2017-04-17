@@ -1,5 +1,5 @@
-#ifndef UTILITY_H
-#define UTILITY_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <SFML/Graphics.hpp>
 #include "../TextureManager.h"
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif UTILITY_H
+#endif ENTITY_H

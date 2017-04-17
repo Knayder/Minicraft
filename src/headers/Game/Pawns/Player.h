@@ -7,6 +7,9 @@
 class Player : public Pawn {
 	int movingDirection;
 	float velocity;
+
+	sf::Clock useCoolDown;
+	float coolDownTime;
 public:
 	Player();
 	virtual void update(const float &deltaTime);
