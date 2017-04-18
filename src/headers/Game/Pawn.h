@@ -14,7 +14,7 @@ public:
 	{}
 	virtual ~Pawn(){}
 	
-	virtual void update(const float &deltaTime) override {}
+	virtual void update() override {}
 };
 
 

@@ -21,6 +21,22 @@ Tile * Resources::newTile(Tile *tile, const sf::Vector2f & position, const float
 	return tile;
 }
 
+void Resources::setDeltaTime(const float & deltaTime)
+{
+	Resources::getInstance().deltaTime = deltaTime;
+}
+
+float Resources::getDeltaTime()
+{
+	return Resources::getInstance().deltaTime;
+}
+
+float Resources::getScale()
+{
+	static float scale = 6.f;
+	return scale;
+}
+
 void Resources::setMap(const std::vector<std::vector<std::string>>& newMap, const float &scale)
 {
 	Resources &instance = Resources::getInstance();
@@ -56,15 +72,15 @@ void Resources::draw(sf::RenderTarget & target){
 		target.draw(*pawn);
 }
 
-void Resources::update(const float & deltaTime){
+void Resources::update(){
 	Resources & instance = Resources::getInstance();
 
 	for (auto pawn : instance.pawns)
-		pawn->update(deltaTime);
+		pawn->update();
 
 	for (auto vectorTile : instance.map)
 		for (auto tile : vectorTile)
-			tile->update(deltaTime);
+			tile->update();
 }
 
 Pawn * Resources::addPawn(Pawn * pawn){

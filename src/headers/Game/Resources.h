@@ -18,6 +18,11 @@ public:
 	Resources(const Resources &) = delete;
 	void operator =(const Resources &) = delete;
 
+	static void setDeltaTime(const float &deltaTime);
+
+	static float getDeltaTime();
+
+	static float getScale();
 	
 	static void setMap(const std::vector<std::vector<std::string>> &map, const float &scale);
 
@@ -26,7 +31,7 @@ public:
 
 	static void draw(sf::RenderTarget &target);
 
-	static void update(const float &deltaTime);
+	static void update();
 
 
 	static Pawn * addPawn(Pawn *pawn);
@@ -38,6 +43,8 @@ private:
 	Resources() {}
 	Map map;
 	Pawns pawns;
+
+	float deltaTime;
 
 	static Resources & getInstance();
 

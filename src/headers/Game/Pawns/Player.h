@@ -12,7 +12,7 @@ class Player : public Pawn {
 	float coolDownTime;
 public:
 	Player();
-	virtual void update(const float &deltaTime);
+	virtual void update() override;
 	void input();
 };
 

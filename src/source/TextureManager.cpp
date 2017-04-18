@@ -126,8 +126,8 @@ bool TextureManager::setColor(const std::string & name, const int & value, const
 	if (texture != nullptr) {
 		sf::Image image = texture->copyToImage();
 
-		for (int y = 0; y < image.getSize().y; y++)
-			for (int x = 0; x < image.getSize().x; x++)
+		for (unsigned int y = 0; y < image.getSize().y; y++)
+			for (unsigned int x = 0; x < image.getSize().x; x++)
 				if (image.getPixel(x, y).r == value)
 					image.setPixel(x, y, color);
 

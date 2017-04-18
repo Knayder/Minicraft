@@ -1,5 +1,6 @@
 #include "..\..\..\headers\Game\Pawns\Player.h"
 #include <iostream>
+#include "../src/headers/Game/Resources.h"
 
 const int NONE = 4, UP = 0, RIGHT = 1, LEFT = 2, DOWN = 3;
 
@@ -12,8 +13,9 @@ Player::Player() :
 
 }
 
-void Player::update(const float & deltaTime){
+void Player::update(){
 	input();
+	float deltaTime = Resources::getDeltaTime();
 	if (movingDirection == UP)
 		move({0, deltaTime*-velocity});
 
@@ -54,8 +56,10 @@ void Player::input(){
 	
 	if (useCoolDown.getElapsedTime().asSeconds() >= coolDownTime) {
 		useCoolDown.restart();
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			std::cout << "USE" << std::endl;
+		float scale = Resources::getScale();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			getPosition() / (16 * scale);
+		}
 	}
 	
 }

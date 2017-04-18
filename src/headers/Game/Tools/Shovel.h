@@ -9,7 +9,7 @@ public:
 	Shovel();
 
 	virtual void use(const Pawn& user) override;
-	virtual void update(const float &deltaTime) override;
+	virtual void update() override;
 };
 
 

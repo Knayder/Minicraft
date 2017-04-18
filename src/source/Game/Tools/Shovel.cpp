@@ -10,7 +10,7 @@ void Shovel::use(const Pawn & user)
 	sf::err() << "Hello";
 }
 
-void Shovel::update(const float & deltaTime)
+void Shovel::update()
 {
 	sf::err() << "Hello";
 }

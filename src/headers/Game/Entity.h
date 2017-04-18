@@ -15,7 +15,7 @@ public:
 		sf::Sprite::setTexture(*TextureManager::get(name));
 	}
 
-	virtual void update(const float &deltaTime){}
+	virtual void update(){}
 };
 
 

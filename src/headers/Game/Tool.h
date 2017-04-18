@@ -11,7 +11,7 @@ public:
 		Entity(name)
 	{}
 	virtual void use(const Pawn &user){}
-	virtual void update(const float &deltaTime) override {}
+	virtual void update() override {}
 };
 
 #endif TOOL_H

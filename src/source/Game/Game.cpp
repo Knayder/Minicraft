@@ -112,12 +112,17 @@ int Game::run(){
 
 		//FPS locked at "maxFps"
 		if (clock.getElapsedTime().asSeconds() >= 1.f / maxFps) {
+			//DeltaTime
 			deltaTime = clock.restart().asSeconds();
+			Resources::setDeltaTime(deltaTime);
+
+			//Start
 			input();
 
-			Resources::update(deltaTime);
+			Resources::update();
 
 			window.clear(sf::Color::Yellow);
+
 			Resources::draw(window);
 
 			window.display();
