@@ -116,7 +116,6 @@ int Game::run(){
 			//DeltaTime
 			deltaTime = clock.restart().asSeconds();
 			Resources::setDeltaTime(deltaTime);
-
 			//Start
 			input();
 

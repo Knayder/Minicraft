@@ -72,35 +72,23 @@ void Player::input(){
 
 
 			if (lookingDirection == LEFT)
-				position.x -= (8 * scale);
+				position += {-4 * scale, 8 * scale};
 
 			else if (lookingDirection == RIGHT)
-				position.x += (16*scale);
+				position += {20 * scale, 8 * scale};
 
 			else if (lookingDirection == UP)
-				position.y -= (8 * scale);
+				position += {8 * scale, -4 * scale};
 
 			else if (lookingDirection == DOWN)
-				position.y += (16*scale);
+				position += {8 * scale, 20 * scale};
 
-
-			position = position / (16 * scale);
+			
+			position = ( position + sf::Vector2f(0.5,0.5) ) / (16 * scale);
 			
 			
 
 			Tile *tile = Resources::getTile((sf::Vector2i)position);
-			if (tile != nullptr)
-				tile->use(usingTool, this);
-
-			tile = Resources::getTile({(int)position.x, (int)std::ceil(position.y)});
-			if (tile != nullptr)
-				tile->use(usingTool, this);
-
-			tile = Resources::getTile({ (int)std::ceil(position.x), (int)position.y });
-			if (tile != nullptr)
-				tile->use(usingTool, this);
-
-			tile = Resources::getTile({ (int)std::ceil(position.x), (int)std::ceil(position.y) });
 			if (tile != nullptr)
 				tile->use(usingTool, this);
 		}
