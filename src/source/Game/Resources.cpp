@@ -31,17 +31,21 @@ float Resources::getDeltaTime()
 	return Resources::getInstance().deltaTime;
 }
 
-float Resources::getScale()
+void Resources::setScale(const float & scale)
 {
-	static float scale = 6.f;
-	return scale;
+	Resources::getInstance().scale = scale;
 }
 
-void Resources::setMap(const std::vector<std::vector<std::string>>& newMap, const float &scale)
+float Resources::getScale()
+{
+	return Resources::getInstance().scale;
+}
+
+void Resources::setMap(const std::vector<std::vector<std::string>>& newMap)
 {
 	Resources &instance = Resources::getInstance();
 	Resources::clearMap();
-
+	float scale = Resources::getScale();
 	instance.map.resize(newMap.size());
 	for (int y = 0; y < newMap.size(); y++) {
 		instance.map[y].resize(newMap[y].size());
@@ -60,6 +64,15 @@ void Resources::clearMap()
 		instance.map[y].clear();
 	}
 	instance.map.clear();
+}
+
+Tile * Resources::getTile(sf::Vector2i position)
+{
+	Resources & instance = Resources::getInstance();
+	if(position.y < instance.map.size() && position.x < instance.map[position.y].size())
+		return instance.map[position.y][position.x];
+	else
+		return nullptr;
 }
 
 void Resources::draw(sf::RenderTarget & target){

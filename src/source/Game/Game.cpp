@@ -81,6 +81,7 @@ Game::Game(sf::RenderWindow & window) :
 	scale(4.f),
 	maxFps(60)
 {
+	Resources::setScale(scale);
 	loadResources();
 	player = new Player();
 	player->setScale(scale, scale);
@@ -99,7 +100,7 @@ int Game::run(){
 		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass","grass", "grass" , "grass" , "grassDownRight2" , "grassDownRight" },
 		{ "grassDownLeft", "grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" , "grassDown" , "grassDown" , "grassDownRight" },
 	};
-	Resources::setMap(map,scale);
+	Resources::setMap(map);
 
 	clock.restart();
 	float deltaTime = 1.f / 60.f;

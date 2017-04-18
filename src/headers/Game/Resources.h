@@ -22,11 +22,16 @@ public:
 
 	static float getDeltaTime();
 
+	static void setScale(const float &scale);
+
 	static float getScale();
+
 	
-	static void setMap(const std::vector<std::vector<std::string>> &map, const float &scale);
+	static void setMap(const std::vector<std::vector<std::string>> &map);
 
 	static void clearMap();
+
+	static Tile * getTile(sf::Vector2i position);
 
 
 	static void draw(sf::RenderTarget &target);
@@ -45,6 +50,7 @@ private:
 	Pawns pawns;
 
 	float deltaTime;
+	float scale;
 
 	static Resources & getInstance();
 

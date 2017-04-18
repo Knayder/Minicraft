@@ -8,9 +8,14 @@ Player::Player() :
 	Pawn("charMoveDown"),
 	movingDirection(DOWN),
 	velocity(200.f),
-	coolDownTime(0.7f)
+	coolDownTime(0.4f)
 {
+	usingTool = new Shovel;
+}
 
+Player::~Player()
+{
+	delete usingTool;
 }
 
 void Player::update(){
@@ -34,31 +39,70 @@ void Player::input(){
 		if(movingDirection != UP)
 			setTexture("charMoveUp");
 		movingDirection = UP;
+		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		if (movingDirection != LEFT)
 			setTexture("charMoveLeft");
 		movingDirection = LEFT;
+		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		if (movingDirection != DOWN)
 			setTexture("charMoveDown");
 		movingDirection = DOWN;
+		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		if (movingDirection != RIGHT)
 			setTexture("charMoveRight");
 		movingDirection = RIGHT;
+		lookingDirection = movingDirection;
 	}
 	else
 		movingDirection = NONE;
 
 	
 	if (useCoolDown.getElapsedTime().asSeconds() >= coolDownTime) {
-		useCoolDown.restart();
-		float scale = Resources::getScale();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			getPosition() / (16 * scale);
+			useCoolDown.restart();
+			float scale = Resources::getScale();
+
+			sf::Vector2f position = getPosition();
+
+
+			if (lookingDirection == LEFT)
+				position.x -= (8 * scale);
+
+			else if (lookingDirection == RIGHT)
+				position.x += (16*scale);
+
+			else if (lookingDirection == UP)
+				position.y -= (8 * scale);
+
+			else if (lookingDirection == DOWN)
+				position.y += (16*scale);
+
+
+			position = position / (16 * scale);
+			
+			
+
+			Tile *tile = Resources::getTile((sf::Vector2i)position);
+			if (tile != nullptr)
+				tile->use(usingTool, this);
+
+			tile = Resources::getTile({(int)position.x, (int)std::ceil(position.y)});
+			if (tile != nullptr)
+				tile->use(usingTool, this);
+
+			tile = Resources::getTile({ (int)std::ceil(position.x), (int)position.y });
+			if (tile != nullptr)
+				tile->use(usingTool, this);
+
+			tile = Resources::getTile({ (int)std::ceil(position.x), (int)std::ceil(position.y) });
+			if (tile != nullptr)
+				tile->use(usingTool, this);
 		}
 	}
 	

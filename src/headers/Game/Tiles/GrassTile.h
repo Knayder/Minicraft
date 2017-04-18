@@ -3,12 +3,14 @@
 
 #include <SFML\Graphics.hpp>
 #include "../Tile.h"
+#include "../Tool.h"
+
 
 class GrassTile : public Tile {
 public:
 	GrassTile(const std::string &name);
 
-	virtual void use(Tool &tool, Pawn &pawn) override;
+	virtual void use(Tool *tool, Pawn *pawn) override;
 };
 
 #endif GRASSTILE_H

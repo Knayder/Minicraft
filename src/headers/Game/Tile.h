@@ -13,7 +13,7 @@ public:
 	Tile(const std::string &name) :
 		Entity(name)
 	{}
-	virtual void use(Tool &tool, Pawn &pawn){}
+	virtual void use(Tool *tool, Pawn *pawn){}
 	virtual void update() override{}
 };
 
