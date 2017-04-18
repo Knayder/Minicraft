@@ -3,8 +3,6 @@
 Game::~Game()
 {
 	TextureManager::clear();
-	for (auto tile : tiles)
-		delete tile;
 }
 
 
@@ -80,12 +78,13 @@ void Game::loadResources()
 
 Game::Game(sf::RenderWindow & window) :
 	window(window),
-	scale(4),
+	scale(4.f),
 	maxFps(60)
 {
 	loadResources();
 	player = new Player();
 	player->setScale(scale, scale);
+	Resources::addPawn(player);
 }
 
 
@@ -100,28 +99,27 @@ int Game::run(){
 		{ "grassLeft", "grass" , "grass", "grass", "grass", "grass","grass", "grass" , "grass" , "grassDownRight2" , "grassDownRight" },
 		{ "grassDownLeft", "grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" ,"grassDown" , "grassDown" , "grassDown" , "grassDownRight" },
 	};
-	for (int y = 0; y < map.size(); y++)
-		for (int x = 0; x < map[y].size(); x++) 
-			addTile(new GrassTile(map[y][x]), {16.f*x*scale, 16.f*y*scale});
+	Resources::setMap(map,scale);
 
 	clock.restart();
 	float deltaTime = 1.f / 60.f;
 	while (window.isOpen()) {
+		//FPS display per 1 sec
 		if (clock2.getElapsedTime().asSeconds() >= 1) {
 			clock2.restart();
 			std::cout << "FPS: " << (int)((1 / deltaTime)+0.5) << std::endl;
 		}
+
+		//FPS locked at "maxFps"
 		if (clock.getElapsedTime().asSeconds() >= 1.f / maxFps) {
 			deltaTime = clock.restart().asSeconds();
 			input();
 
-			player->update(deltaTime);
+			Resources::update(deltaTime);
 
 			window.clear(sf::Color::Yellow);
-			for (auto tile : tiles)
-				window.draw(*tile);
+			Resources::draw(window);
 
-			window.draw(*player);
 			window.display();
 			
 		}
@@ -137,10 +135,5 @@ void Game::input() {
 	}
 }
 
-void Game::addTile(Tile * tile, const sf::Vector2f & position) {
-	tile->setScale(scale, scale);
-	tile->setPosition(position);
-	tiles.push_back(tile);
-}
 
 

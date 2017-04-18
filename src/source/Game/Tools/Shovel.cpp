@@ -7,8 +7,11 @@ Shovel::Shovel() :
 
 void Shovel::use(const Pawn & user)
 {
+	sf::err() << "Hello";
 }
 
 void Shovel::update(const float & deltaTime)
 {
+	sf::err() << "Hello";
 }
+

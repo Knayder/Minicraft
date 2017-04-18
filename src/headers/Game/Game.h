@@ -6,7 +6,7 @@
 #include "Tile.h"
 #include "Tiles/GrassTile.h"
 #include "Pawns/Player.h"
-
+#include "Resources.h"
 #include <iostream>
 
 #include <vector>
@@ -15,10 +15,9 @@ class Game {
 private:
 	sf::RenderWindow &window;
 	void input();
-	void addTile(Tile *tile, const sf::Vector2f &position);
-	std::vector<Tile*> tiles;
 	void loadResources();
-	int scale;
+
+	float scale;
 	float maxFps;
 
 	sf::Clock clock, clock2;

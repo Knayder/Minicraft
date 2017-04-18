@@ -6,8 +6,8 @@ const int NONE = 4, UP = 0, RIGHT = 1, LEFT = 2, DOWN = 3;
 Player::Player() :
 	Pawn("charMoveDown"),
 	movingDirection(DOWN),
-	velocity(200),
-	coolDownTime(0.7)
+	velocity(200.f),
+	coolDownTime(0.7f)
 {
 
 }
@@ -50,6 +50,8 @@ void Player::input(){
 	}
 	else
 		movingDirection = NONE;
+
+	
 	if (useCoolDown.getElapsedTime().asSeconds() >= coolDownTime) {
 		useCoolDown.restart();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
