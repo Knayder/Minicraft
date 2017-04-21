@@ -9,8 +9,8 @@
 
 class Pawn : public Entity {
 public:
-	Pawn(const std::string &name):
-		Entity(name)
+	Pawn(const int &index):
+		Entity(index)
 	{}
 	virtual ~Pawn(){}
 	

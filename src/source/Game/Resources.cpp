@@ -41,7 +41,7 @@ float Resources::getScale()
 	return Resources::getInstance().scale;
 }
 
-void Resources::setMap(const std::vector<std::vector<std::string>>& newMap)
+void Resources::setMap(const std::vector<std::vector<int>>& newMap)
 {
 	Resources &instance = Resources::getInstance();
 	Resources::clearMap();

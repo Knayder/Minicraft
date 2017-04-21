@@ -2,10 +2,10 @@
 #include <iostream>
 #include "../src/headers/Game/Resources.h"
 
-const int NONE = 4, UP = 0, RIGHT = 1, LEFT = 2, DOWN = 3;
+const int NONE = 4, DOWN = 0, UP = 1, LEFT = 2, RIGHT = 3;
 
 Player::Player() :
-	Pawn("charMoveDown"),
+	Pawn(DOWN),
 	movingDirection(DOWN),
 	velocity(200.f),
 	coolDownTime(0.4f)
@@ -37,30 +37,32 @@ void Player::update(){
 void Player::input(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		if(movingDirection != UP)
-			setTexture("charMoveUp");
+			setTexture(UP);
 		movingDirection = UP;
 		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		if (movingDirection != LEFT)
-			setTexture("charMoveLeft");
+			setTexture(LEFT);
 		movingDirection = LEFT;
 		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		if (movingDirection != DOWN)
-			setTexture("charMoveDown");
+			setTexture(DOWN);
 		movingDirection = DOWN;
 		lookingDirection = movingDirection;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		if (movingDirection != RIGHT)
-			setTexture("charMoveRight");
+			setTexture(RIGHT);
 		movingDirection = RIGHT;
 		lookingDirection = movingDirection;
 	}
-	else
+	else {
 		movingDirection = NONE;
+		setTexture(lookingDirection + 17);
+	}
 
 	
 	if (useCoolDown.getElapsedTime().asSeconds() >= coolDownTime) {

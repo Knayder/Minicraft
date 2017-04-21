@@ -7,6 +7,5 @@ int main() {
 
 	Minicraft minicraft(window);
 	minicraft.run();
-
 	return 0;
 }

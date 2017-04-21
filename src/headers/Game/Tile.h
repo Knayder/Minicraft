@@ -10,8 +10,8 @@ class Pawn;
 
 class Tile : public Entity {
 public:
-	Tile(const std::string &name) :
-		Entity(name)
+	Tile(const int &index) :
+		Entity(index)
 	{}
 	virtual void use(Tool *tool, Pawn *pawn){}
 	virtual void update() override{}

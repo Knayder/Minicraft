@@ -6,13 +6,15 @@
 
 class Entity : public sf::Sprite {
 public:
-	Entity(const std::string &name) :
-		sf::Sprite(*TextureManager::get(name))
+	Entity(const int &index)
 	{
-		
+		setTexture(index);
+			
 	}
-	void setTexture(const std::string &name) {
-		sf::Sprite::setTexture(*TextureManager::get(name));
+	void setTexture(const int &index) {
+		sf::Texture *texture = TextureManager::get(index);
+		if (texture != nullptr)
+			sf::Sprite::setTexture(*texture);
 	}
 
 	virtual void update(){}

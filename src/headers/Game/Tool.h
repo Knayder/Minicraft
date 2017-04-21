@@ -7,8 +7,8 @@
 
 class Tool : public Entity {
 public:
-	Tool(const std::string &name) :
-		Entity(name)
+	Tool(const int &index) :
+		Entity(index)
 	{}
 	virtual void use(const Pawn &user){}
 	virtual void update() override {}

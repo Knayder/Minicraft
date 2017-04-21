@@ -1,7 +1,7 @@
 #include "..\..\..\headers\Game\Tools\Shovel.h"
 
 Shovel::Shovel() :
-	Tool("shovel")
+	Tool(51)
 {
 }
 

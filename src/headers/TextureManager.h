@@ -2,7 +2,7 @@
 #define TEXTUREMANAGER_H
 
 #include <SFML/Graphics.hpp>
-#include <unordered_map>
+#include <vector>
 
 class TextureManager final {
 public:
@@ -12,29 +12,31 @@ public:
 	void operator=(const TextureManager &) = delete;
 
 	
+	//Load new texture to container
+	static sf::Texture * loadOne(const std::string &file);
 
-	static sf::Texture * load(const std::string &file, const std::string &name);
+	//Load new texture sheet to container
+	static void load(const std::string &file, const sf::Vector2u &eachSize, const bool &getRidOfColor = false, const sf::Color &color = {0,0,0});
 
-	static sf::Texture * load(const std::string &mainName, const std::string &name, const sf::IntRect &area);
+	static sf::Texture * get(const unsigned int &index);
 
-	static sf::Texture * load(const std::string &mainName, const std::string &name, const int &rotate);
+	static void clear();
 
-	static sf::Texture * get(const std::string &name);
+	//Decrement value after index 
+	static bool remove(const unsigned int &index);
 
-	static sf::Texture * flip(const std::string &name, const std::string &direction);
+	static sf::Texture * replace(const unsigned int &index, const unsigned int &newIndex);
 
-	static bool removeColor(const std::string &name, const sf::Color & color);
-
-	static bool setColor(const std::string &name, const int &value, const sf::Color &color);
-
-	static bool clear();
-
-	static bool remove(const std::string &name);
+	static sf::Texture * replace(const unsigned int &index, const std::string &file, const bool &isArea = false, const sf::IntRect &area = {0,0,0,0});
 
 	static bool isEmpty();
 
+	static unsigned int getSize() {
+		return TextureManager::getInstance().textureContainer.size();
+	}
+
 	//Typedef
-	typedef std::unordered_map<std::string, sf::Texture *> TextureContainer;
+	typedef std::vector<sf::Texture *> TextureContainer;
 
 private:
 	TextureManager();

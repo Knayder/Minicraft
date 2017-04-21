@@ -27,7 +27,7 @@ public:
 	static float getScale();
 
 	
-	static void setMap(const std::vector<std::vector<std::string>> &map);
+	static void setMap(const std::vector<std::vector<int>> &map);
 
 	static void clearMap();
 

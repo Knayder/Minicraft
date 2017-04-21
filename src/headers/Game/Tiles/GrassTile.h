@@ -8,7 +8,7 @@
 
 class GrassTile : public Tile {
 public:
-	GrassTile(const std::string &name);
+	GrassTile(const int &index);
 
 	virtual void use(Tool *tool, Pawn *pawn) override;
 };
